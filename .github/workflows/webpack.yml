@@ -39,7 +39,8 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        path: docs/
+        name: artifact
+        path: docs/*
 
     - name: Deploy to GitHub Pages
       id: deployment
