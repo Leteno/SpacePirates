@@ -37,12 +37,22 @@ jobs:
         cp -rf test_package/public/assets docs/
         tar -cvf artifact.tar docs/*
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: artifact
-        path: artifact.tar
+#     - name: Upload artifact
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: artifact
+#         path: artifact.tar
 
 #     - name: Deploy to GitHub Pages
 #       id: deployment
 #       uses: actions/deploy-pages@v1
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        # Upload entire branch
+        path: docs/*
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@main
