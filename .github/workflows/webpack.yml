@@ -35,12 +35,13 @@ jobs:
         npm install
         npm run build
         cp -rf test_package/public/assets docs/
+        tar -cvf artifact.tar docs/*
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: artifact
-        path: docs/*
+        path: artifact.tar
 
     - name: Deploy to GitHub Pages
       id: deployment
