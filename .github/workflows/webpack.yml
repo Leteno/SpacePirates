@@ -26,4 +26,13 @@ jobs:
       run: |
         npm install
         npm run build
-        npx webpack
+        cp -rf test_package/public/assets docs/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        path: docs/
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
