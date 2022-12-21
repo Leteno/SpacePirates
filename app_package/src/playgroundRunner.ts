@@ -1,4 +1,4 @@
-import { Engine, MorphTargetManager, NativeEngine, WebGPUEngine } from "@babylonjs/core";
+import { Engine, MorphTargetManager, NativeEngine, WebGPUEngine, WebXRFeatureName } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
 import { CreatePlaygroundScene } from "./Playground/playground";
 import { Main } from "./Playground/States/Main";
@@ -93,6 +93,13 @@ export async function initializeBabylonApp(options: InitializeBabylonAppOptions)
     (window as any).engine = engine;
 
     const scene = CreatePlaygroundScene(engine, options.assetsHostUrl!, canvas);
+    const xrHelper = await scene.createDefaultXRExperienceAsync();
+
+    const featuresManager = xrHelper.baseExperience.featuresManager;
+    featuresManager.enableFeature(WebXRFeatureName.POINTER_SELECTION, "stable", {
+        xrInput: xrHelper.input,
+        enablePointerSelectionOnAllControllers: true
+    });
     GuiFramework.updateScreenRatio(engine);
     engine.runRenderLoop(() => {
         scene.render();
